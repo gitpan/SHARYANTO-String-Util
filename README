@@ -1,0 +1,23 @@
+NAME
+    SHARYANTO::String::Util - String utilities
+
+VERSION
+    version 0.01
+
+FUNCTIONS
+  trim_blank_lines($str) => STR
+    Trim blank lines at the beginning and the end. Won't trim blank lines in
+    the middle. Blank lines include lines with only whitespaces in them.
+
+SEE ALSO
+    SHARYANTO::Utils
+
+AUTHOR
+    Steven Haryanto <stevenharyanto@gmail.com>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2012 by Steven Haryanto.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
+
