@@ -17,7 +17,7 @@ my %module_build_args = (
     "Steven Haryanto <stevenharyanto\@gmail.com>"
   ],
   "dist_name" => "SHARYANTO-String-Util",
-  "dist_version" => "0.01",
+  "dist_version" => "0.18",
   "license" => "perl",
   "module_name" => "SHARYANTO::String::Util",
   "recommends" => {},

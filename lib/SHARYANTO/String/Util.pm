@@ -4,7 +4,7 @@ use 5.010;
 use strict;
 use warnings;
 
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.18'; # VERSION
 
 our @ISA = qw(Exporter);
 our @EXPORT_OK = qw(trim_blank_lines);
@@ -30,7 +30,7 @@ SHARYANTO::String::Util - String utilities
 
 =head1 VERSION
 
-version 0.01
+version 0.18
 
 =head1 FUNCTIONS
 
