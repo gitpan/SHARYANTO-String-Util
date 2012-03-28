@@ -2,12 +2,17 @@ NAME
     SHARYANTO::String::Util - String utilities
 
 VERSION
-    version 0.18
+    version 0.19
 
 FUNCTIONS
   trim_blank_lines($str) => STR
     Trim blank lines at the beginning and the end. Won't trim blank lines in
     the middle. Blank lines include lines with only whitespaces in them.
+
+  ellipsis($str[, $maxlen, $ellipsis]) => STR
+    Return $str unmodified if $str's length is less than $maxlen (default
+    80). Otherwise cut $str to ($maxlen - length($ellipsis)) and append
+    $ellipsis (default '...') at the end.
 
 SEE ALSO
     SHARYANTO::Utils
