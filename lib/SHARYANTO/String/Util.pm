@@ -4,10 +4,10 @@ use 5.010;
 use strict;
 use warnings;
 
-our $VERSION = '0.19'; # VERSION
+our $VERSION = '0.20'; # VERSION
 
 our @ISA = qw(Exporter);
-our @EXPORT_OK = qw(trim_blank_lines ellipsis);
+our @EXPORT_OK = qw(trim_blank_lines ellipsis indent);
 
 sub trim_blank_lines {
     local $_ = shift;
@@ -29,6 +29,13 @@ sub ellipsis {
     }
 }
 
+sub indent {
+    my ($indent, $str) = @_;
+
+    $str =~ s/^/$indent/mg;
+    $str;
+}
+
 1;
 # ABSTRACT: String utilities
 
@@ -42,7 +49,7 @@ SHARYANTO::String::Util - String utilities
 
 =head1 VERSION
 
-version 0.19
+version 0.20
 
 =head1 FUNCTIONS
 
@@ -56,6 +63,12 @@ middle. Blank lines include lines with only whitespaces in them.
 Return $str unmodified if $str's length is less than $maxlen (default 80).
 Otherwise cut $str to ($maxlen - length($ellipsis)) and append $ellipsis
 (default '...') at the end.
+
+=head2 indent($indent, $str) => STR
+
+Indent every line in $str with $indent. Example:
+
+ indent('  ', "one\ntwo\nthree") # "  one\n  two\n  three"
 
 =head1 SEE ALSO
 

@@ -4,6 +4,7 @@ author:
   - 'Steven Haryanto <stevenharyanto@gmail.com>'
 build_requires:
   Module::Build: 0.3601
+  Test::More: 0.96
 configure_requires:
   Module::Build: 0.3601
 dynamic_config: 0
@@ -14,9 +15,8 @@ meta-spec:
   version: 1.4
 name: SHARYANTO-String-Util
 requires:
-  Test::More: 0.96
   perl: 5.010001
 resources:
   homepage: http://search.cpan.org/dist/SHARYANTO-String-Util/
   repository: http://github.com/sharyanto/perl-SHARYANTO-String-Util
-version: 0.19
+version: 0.20

@@ -2,7 +2,7 @@ NAME
     SHARYANTO::String::Util - String utilities
 
 VERSION
-    version 0.19
+    version 0.20
 
 FUNCTIONS
   trim_blank_lines($str) => STR
@@ -13,6 +13,11 @@ FUNCTIONS
     Return $str unmodified if $str's length is less than $maxlen (default
     80). Otherwise cut $str to ($maxlen - length($ellipsis)) and append
     $ellipsis (default '...') at the end.
+
+  indent($indent, $str) => STR
+    Indent every line in $str with $indent. Example:
+
+     indent('  ', "one\ntwo\nthree") # "  one\n  two\n  three"
 
 SEE ALSO
     SHARYANTO::Utils

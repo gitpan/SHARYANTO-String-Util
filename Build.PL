@@ -7,7 +7,8 @@ use Module::Build 0.3601;
 
 my %module_build_args = (
   "build_requires" => {
-    "Module::Build" => "0.3601"
+    "Module::Build" => "0.3601",
+    "Test::More" => "0.96"
   },
   "configure_requires" => {
     "Module::Build" => "0.3601"
@@ -17,13 +18,12 @@ my %module_build_args = (
     "Steven Haryanto <stevenharyanto\@gmail.com>"
   ],
   "dist_name" => "SHARYANTO-String-Util",
-  "dist_version" => "0.19",
+  "dist_version" => "0.20",
   "license" => "perl",
   "module_name" => "SHARYANTO::String::Util",
   "recommends" => {},
   "recursive_test_files" => 1,
   "requires" => {
-    "Test::More" => "0.96",
     "perl" => "5.010001"
   },
   "script_files" => []
