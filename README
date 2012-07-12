@@ -2,7 +2,7 @@ NAME
     SHARYANTO::String::Util - String utilities
 
 VERSION
-    version 0.20
+    version 0.21
 
 FUNCTIONS
   trim_blank_lines($str) => STR
@@ -14,10 +14,35 @@ FUNCTIONS
     80). Otherwise cut $str to ($maxlen - length($ellipsis)) and append
     $ellipsis (default '...') at the end.
 
-  indent($indent, $str) => STR
+  indent($indent, $str, \%opts) => STR
     Indent every line in $str with $indent. Example:
 
      indent('  ', "one\ntwo\nthree") # "  one\n  two\n  three"
+
+    %opts is optional. Known options:
+
+    *   indent_blank_lines => BOOL (default 1)
+
+        If set to false, does not indent blank lines (i.e., lines containing
+        only zero or more whitespaces).
+
+FAQ
+  What is this?
+    This distribution is part of SHARYANTO::Utils, a heterogenous collection
+    of modules that will eventually have their own proper distributions, but
+    do not yet because they are not ready for some reason or another. For
+    example: alpha quality code, code not yet properly refactored, there are
+    still no tests and/or documentation, I haven't decided on a proper name
+    yet, etc.
+
+    I put it on CPAN because some of my other modules (and scripts) depend
+    on it. And I always like to put as much of my code in functions and
+    modules (as opposed to scripts) as possible, for better reusability.
+
+    You are free to use this, but beware that things might get moved around
+    without prior warning.
+
+    I assure you that this is not a vanity distribution :-)
 
 SEE ALSO
     SHARYANTO::Utils

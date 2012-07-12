@@ -19,4 +19,4 @@ requires:
 resources:
   homepage: http://search.cpan.org/dist/SHARYANTO-String-Util/
   repository: http://github.com/sharyanto/perl-SHARYANTO-String-Util
-version: 0.20
+version: 0.21
