@@ -2,7 +2,7 @@ NAME
     SHARYANTO::String::Util - String utilities
 
 VERSION
-    version 0.22
+    version 0.23
 
 FUNCTIONS
   trim_blank_lines($str) => STR
