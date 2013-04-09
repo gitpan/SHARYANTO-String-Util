@@ -2,7 +2,7 @@ NAME
     SHARYANTO::String::Util - String utilities
 
 VERSION
-    version 0.23
+    version 0.24
 
 FUNCTIONS
   trim_blank_lines($str) => STR
@@ -56,6 +56,15 @@ FUNCTIONS
              3|
              4|line4
 
+  pad($text, $width[, $which[, $padchar[, $truncate]]]) => STR
+    Return $text padded with $padchar to $width columns. $which is either
+    "r" or "right" for padding on the right (the default if not specified),
+    "l" or "left" for padding on the right, or "c" or "center" or "centre"
+    for left+right padding to center the text.
+
+    $padchar is whitespace if not specified. It should be string having the
+    width of 1 column.
+
 FAQ
   What is this?
     This distribution is part of SHARYANTO::Utils, a heterogenous collection
@@ -81,7 +90,7 @@ AUTHOR
     Steven Haryanto <stevenharyanto@gmail.com>
 
 COPYRIGHT AND LICENSE
-    This software is copyright (c) 2012 by Steven Haryanto.
+    This software is copyright (c) 2013 by Steven Haryanto.
 
     This is free software; you can redistribute it and/or modify it under
     the same terms as the Perl 5 programming language system itself.

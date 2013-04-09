@@ -1,14 +1,14 @@
 package SHARYANTO::String::Util;
 
-use 5.010;
+use 5.010001;
 use strict;
 use warnings;
 
-our $VERSION = '0.23'; # VERSION
+our $VERSION = '0.24'; # VERSION
 
 use Exporter;
 our @ISA = qw(Exporter);
-our @EXPORT_OK = qw(trim_blank_lines ellipsis indent linenum);
+our @EXPORT_OK = qw(trim_blank_lines ellipsis indent linenum pad);
 
 sub trim_blank_lines {
     local $_ = shift;
@@ -63,6 +63,31 @@ sub linenum {
     $str;
 }
 
+sub pad {
+    my ($text, $width, $which, $padchar, $is_trunc) = @_;
+    if ($which) {
+        $which = substr($which, 0, 1);
+    } else {
+        $which = "r";
+    }
+    $padchar //= " ";
+
+    my $w = length($text);
+    if ($is_trunc && $w > $width) {
+        $text = substr($text, 0, $width, 1);
+    } else {
+        if ($which eq 'l') {
+            $text = ($padchar x ($width-$w)) . $text;
+        } elsif ($which eq 'c') {
+            my $n = int(($width-$w)/2);
+            $text = ($padchar x $n) . $text . ($padchar x ($width-$w-$n));
+        } else {
+            $text .= ($padchar x ($width-$w));
+        }
+    }
+    $text;
+}
+
 1;
 # ABSTRACT: String utilities
 
@@ -76,7 +101,7 @@ SHARYANTO::String::Util - String utilities
 
 =head1 VERSION
 
-version 0.23
+version 0.24
 
 =head1 FUNCTIONS
 
@@ -143,6 +168,16 @@ If set to false, keep printing line number even if line is empty:
 
 =back
 
+=head2 pad($text, $width[, $which[, $padchar[, $truncate]]]) => STR
+
+Return C<$text> padded with C<$padchar> to C<$width> columns. C<$which> is
+either "r" or "right" for padding on the right (the default if not specified),
+"l" or "left" for padding on the right, or "c" or "center" or "centre" for
+left+right padding to center the text.
+
+C<$padchar> is whitespace if not specified. It should be string having the width
+of 1 column.
+
 =head1 FAQ
 
 =head2 What is this?
@@ -172,7 +207,7 @@ Steven Haryanto <stevenharyanto@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Steven Haryanto.
+This software is copyright (c) 2013 by Steven Haryanto.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
