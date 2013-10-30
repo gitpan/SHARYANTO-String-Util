@@ -4,11 +4,11 @@ use 5.010001;
 use strict;
 use warnings;
 
-our $VERSION = '0.24'; # VERSION
+our $VERSION = '0.25'; # VERSION
 
 use Exporter;
 our @ISA = qw(Exporter);
-our @EXPORT_OK = qw(trim_blank_lines ellipsis indent linenum pad);
+our @EXPORT_OK = qw(trim_blank_lines ellipsis indent linenum pad qqquote);
 
 sub trim_blank_lines {
     local $_ = shift;
@@ -88,20 +88,48 @@ sub pad {
     $text;
 }
 
+# BEGIN COPY PASTE FROM Data::Dump
+my %esc = (
+    "\a" => "\\a",
+    "\b" => "\\b",
+    "\t" => "\\t",
+    "\n" => "\\n",
+    "\f" => "\\f",
+    "\r" => "\\r",
+    "\e" => "\\e",
+);
+
+# put a string value in double quotes
+sub qqquote {
+  local($_) = $_[0];
+  # If there are many '"' we might want to use qq() instead
+  s/([\\\"\@\$])/\\$1/g;
+  return qq("$_") unless /[^\040-\176]/;  # fast exit
+
+  s/([\a\b\t\n\f\r\e])/$esc{$1}/g;
+
+  # no need for 3 digits in escape for these
+  s/([\0-\037])(?!\d)/sprintf('\\%o',ord($1))/eg;
+
+  s/([\0-\037\177-\377])/sprintf('\\x%02X',ord($1))/eg;
+  s/([^\040-\176])/sprintf('\\x{%X}',ord($1))/eg;
+
+  return qq("$_");
+}
+# END COPY PASTE FROM Data::Dump
+
 1;
 # ABSTRACT: String utilities
 
-
 __END__
+
 =pod
+
+=encoding utf-8
 
 =head1 NAME
 
 SHARYANTO::String::Util - String utilities
-
-=head1 VERSION
-
-version 0.24
 
 =head1 FUNCTIONS
 
@@ -178,28 +206,37 @@ left+right padding to center the text.
 C<$padchar> is whitespace if not specified. It should be string having the width
 of 1 column.
 
-=head1 FAQ
+=head2 qqquote($str) => STR
 
-=head2 What is this?
+Quote or encode C<$str> to the Perl double quote (C<qq>) literal representation
+of the string. Example:
 
-This distribution is part of L<SHARYANTO::Utils>, a heterogenous collection of
-modules that will eventually have their own proper distributions, but do not yet
-because they are not ready for some reason or another. For example: alpha
-quality code, code not yet properly refactored, there are still no tests and/or
-documentation, I haven't decided on a proper name yet, etc.
+ say qqquote("a");        # => "a"
+ say qqquote("a\n");      # => "a\n"
+ say qqquote('"');        # => "\""
+ say qqquote('$foo');     # => "\$foo"
 
-I put it on CPAN because some of my other modules (and scripts) depend on it.
-And I always like to put as much of my code in functions and modules (as opposed
-to scripts) as possible, for better reusability.
+This code is taken from C<quote()> in L<Data::Dump>. Maybe I didn't look more
+closely, but I couldn't a module that provides a function to do something like
+this. L<String::Escape>, for example, provides C<qqbackslash> but it does not
+escape C<$>.
 
-You are free to use this, but beware that things might get moved around without
-prior warning.
+=head1 HOMEPAGE
 
-I assure you that this is not a vanity distribution :-)
+Please visit the project's homepage at L<https://metacpan.org/release/SHARYANTO-String-Util>.
 
-=head1 SEE ALSO
+=head1 SOURCE
 
-L<SHARYANTO::Utils>
+Source repository is at L<https://github.com/sharyanto/perl-SHARYANTO-String-Util>.
+
+=head1 BUGS
+
+Please report any bugs or feature requests on the bugtracker website
+http://rt.cpan.org/Public/Dist/Display.html?Name=SHARYANTO-String-Util
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
 
 =head1 AUTHOR
 
@@ -213,4 +250,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

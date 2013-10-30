@@ -1,9 +1,6 @@
 NAME
     SHARYANTO::String::Util - String utilities
 
-VERSION
-    version 0.24
-
 FUNCTIONS
   trim_blank_lines($str) => STR
     Trim blank lines at the beginning and the end. Won't trim blank lines in
@@ -65,26 +62,34 @@ FUNCTIONS
     $padchar is whitespace if not specified. It should be string having the
     width of 1 column.
 
-FAQ
-  What is this?
-    This distribution is part of SHARYANTO::Utils, a heterogenous collection
-    of modules that will eventually have their own proper distributions, but
-    do not yet because they are not ready for some reason or another. For
-    example: alpha quality code, code not yet properly refactored, there are
-    still no tests and/or documentation, I haven't decided on a proper name
-    yet, etc.
+  qqquote($str) => STR
+    Quote or encode $str to the Perl double quote ("qq") literal
+    representation of the string. Example:
 
-    I put it on CPAN because some of my other modules (and scripts) depend
-    on it. And I always like to put as much of my code in functions and
-    modules (as opposed to scripts) as possible, for better reusability.
+     say qqquote("a");        # => "a"
+     say qqquote("a\n");      # => "a\n"
+     say qqquote('"');        # => "\""
+     say qqquote('$foo');     # => "\$foo"
 
-    You are free to use this, but beware that things might get moved around
-    without prior warning.
+    This code is taken from "quote()" in Data::Dump. Maybe I didn't look
+    more closely, but I couldn't a module that provides a function to do
+    something like this. String::Escape, for example, provides "qqbackslash"
+    but it does not escape "$".
 
-    I assure you that this is not a vanity distribution :-)
+HOMEPAGE
+    Please visit the project's homepage at
+    <https://metacpan.org/release/SHARYANTO-String-Util>.
 
-SEE ALSO
-    SHARYANTO::Utils
+SOURCE
+    Source repository is at
+    <https://github.com/sharyanto/perl-SHARYANTO-String-Util>.
+
+BUGS
+    Please report any bugs or feature requests on the bugtracker website
+    http://rt.cpan.org/Public/Dist/Display.html?Name=SHARYANTO-String-Util
+
+    When submitting a bug or request, please include a test-file or a patch
+    to an existing test-file that illustrates the bug or desired feature.
 
 AUTHOR
     Steven Haryanto <stevenharyanto@gmail.com>
