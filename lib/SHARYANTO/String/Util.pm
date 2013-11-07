@@ -4,11 +4,62 @@ use 5.010001;
 use strict;
 use warnings;
 
-our $VERSION = '0.25'; # VERSION
+our $VERSION = '0.26'; # VERSION
 
 use Exporter;
 our @ISA = qw(Exporter);
-our @EXPORT_OK = qw(trim_blank_lines ellipsis indent linenum pad qqquote);
+our @EXPORT_OK = qw(
+                       ltrim
+                       rtrim
+                       trim
+                       ltrim_lines
+                       rtrim_lines
+                       trim_lines
+                       trim_blank_lines
+                       ellipsis
+                       indent
+                       linenum
+                       pad
+                       qqquote
+               );
+
+sub ltrim {
+    my $str = shift;
+    $str =~ s/\A\s+//s;
+    $str;
+}
+
+sub rtrim {
+    my $str = shift;
+    $str =~ s/\s+\z//s;
+    $str;
+}
+
+sub trim {
+    my $str = shift;
+    $str =~ s/\A\s+//s;
+    $str =~ s/\s+\z//s;
+    $str;
+}
+
+sub ltrim_lines {
+    my $str = shift;
+    $str =~ s/^[ \t]+//mg; # XXX other unicode non-newline spaces
+    $str;
+}
+
+sub rtrim_lines {
+    my $str = shift;
+    $str =~ s/[ \t]+$//mg;
+    $str;
+}
+
+sub trim_lines {
+    my $str = shift;
+    $str =~ s/^[ \t]+//mg;
+    $str =~ s/[ \t]+$//mg;
+    $str;
+}
 
 sub trim_blank_lines {
     local $_ = shift;
@@ -131,7 +182,43 @@ __END__
 
 SHARYANTO::String::Util - String utilities
 
+=head1 DESCRIPTION
+
 =head1 FUNCTIONS
+
+=head2 ltrim($str) => STR
+
+Trim whitespaces (including newlines) at the beginning of string. Equivalent to:
+
+ $str =~ s/\A\s+//s;
+
+=head2 ltrim_lines($str) => STR
+
+Trim whitespaces (not including newlines) at the beginning of each line of
+string. Equivalent to:
+
+ $str =~ s/^\s+//mg;
+
+=head2 rtrim($str) => STR
+
+Trim whitespaces (including newlines) at the end of string. Equivalent to:
+
+ $str =~ s/[ \t]+\z//s;
+
+=head2 rtrim_lines($str) => STR
+
+Trim whitespaces (not including newlines) at the end of each line of
+string. Equivalent to:
+
+ $str =~ s/[ \t]+$//mg;
+
+=head2 trim($str) => STR
+
+ltrim + rtrim.
+
+=head2 trim_lines($str) => STR
+
+ltrim_lines + rtrim_lines.
 
 =head2 trim_blank_lines($str) => STR
 
@@ -221,18 +308,25 @@ closely, but I couldn't a module that provides a function to do something like
 this. L<String::Escape>, for example, provides C<qqbackslash> but it does not
 escape C<$>.
 
+
+None are exported by default, but they are exportable.
+
+=head1 SEE ALSO
+
+L<SHARYANTO>
+
 =head1 HOMEPAGE
 
 Please visit the project's homepage at L<https://metacpan.org/release/SHARYANTO-String-Util>.
 
 =head1 SOURCE
 
-Source repository is at L<https://github.com/sharyanto/perl-SHARYANTO-String-Util>.
+Source repository is at L<HASH(0x353ed90)>.
 
 =head1 BUGS
 
 Please report any bugs or feature requests on the bugtracker website
-http://rt.cpan.org/Public/Dist/Display.html?Name=SHARYANTO-String-Util
+https://rt.cpan.org/Public/Dist/Display.html?Name=SHARYANTO-String-Util
 
 When submitting a bug or request, please include a test-file or a
 patch to an existing test-file that illustrates the bug or desired
