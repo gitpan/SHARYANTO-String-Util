@@ -1,7 +1,10 @@
 NAME
     SHARYANTO::String::Util - String utilities
 
-DESCRIPTION
+VERSION
+    This document describes version 0.27 of SHARYANTO::String::Util (from
+    Perl distribution SHARYANTO-String-Util), released on 2014-05-22.
+
 FUNCTIONS
   ltrim($str) => STR
     Trim whitespaces (including newlines) at the beginning of string.
@@ -107,7 +110,11 @@ FUNCTIONS
     something like this. String::Escape, for example, provides "qqbackslash"
     but it does not escape "$".
 
-    None are exported by default, but they are exportable.
+  common_prefix(@LIST) => STR
+    Given a list of strings, return common prefix.
+
+  common_suffix(@LIST) => STR
+    Given a list of strings, return common suffix.
 
 SEE ALSO
     SHARYANTO
@@ -117,11 +124,13 @@ HOMEPAGE
     <https://metacpan.org/release/SHARYANTO-String-Util>.
 
 SOURCE
-    Source repository is at HASH(0x353ed90).
+    Source repository is at
+    <https://github.com/sharyanto/perl-SHARYANTO-String-Util>.
 
 BUGS
     Please report any bugs or feature requests on the bugtracker website
-    https://rt.cpan.org/Public/Dist/Display.html?Name=SHARYANTO-String-Util
+    <https://rt.cpan.org/Public/Dist/Display.html?Name=SHARYANTO-String-Util
+    >
 
     When submitting a bug or request, please include a test-file or a patch
     to an existing test-file that illustrates the bug or desired feature.
@@ -130,7 +139,7 @@ AUTHOR
     Steven Haryanto <stevenharyanto@gmail.com>
 
 COPYRIGHT AND LICENSE
-    This software is copyright (c) 2013 by Steven Haryanto.
+    This software is copyright (c) 2014 by Steven Haryanto.
 
     This is free software; you can redistribute it and/or modify it under
     the same terms as the Perl 5 programming language system itself.

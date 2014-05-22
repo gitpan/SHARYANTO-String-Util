@@ -4,7 +4,7 @@ use 5.010001;
 use strict;
 use warnings;
 
-our $VERSION = '0.26'; # VERSION
+our $VERSION = '0.27'; # VERSION
 
 use Exporter;
 our @ISA = qw(Exporter);
@@ -21,6 +21,8 @@ our @EXPORT_OK = qw(
                        linenum
                        pad
                        qqquote
+                       common_prefix
+                       common_suffix
                );
 
 sub ltrim {
@@ -169,6 +171,40 @@ sub qqquote {
 }
 # END COPY PASTE FROM Data::Dump
 
+sub common_prefix {
+    return undef unless @_;
+    my $i;
+  L1:
+    for ($i=0; $i < length($_[0]); $i++) {
+        for (@_[1..$#_]) {
+            if (length($_) < $i) {
+                $i--; last L1;
+            } else {
+                last L1 if substr($_, $i, 1) ne substr($_[0], $i, 1);
+            }
+        }
+    }
+    substr($_[0], 0, $i);
+}
+
+sub common_suffix {
+    require List::Util;
+
+    return undef unless @_;
+    my $i;
+  L1:
+    for ($i = 0; $i < length($_[0]); $i++) {
+        for (@_[1..$#_]) {
+            if (length($_) < $i) {
+                $i--; last L1;
+            } else {
+                last L1 if substr($_, -($i+1), 1) ne substr($_[0], -($i+1), 1);
+            }
+        }
+    }
+    $i ? substr($_[0], -$i) : "";
+}
+
 1;
 # ABSTRACT: String utilities
 
@@ -176,13 +212,15 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =head1 NAME
 
 SHARYANTO::String::Util - String utilities
 
-=head1 DESCRIPTION
+=head1 VERSION
+
+This document describes version 0.27 of SHARYANTO::String::Util (from Perl distribution SHARYANTO-String-Util), released on 2014-05-22.
 
 =head1 FUNCTIONS
 
@@ -308,8 +346,13 @@ closely, but I couldn't a module that provides a function to do something like
 this. L<String::Escape>, for example, provides C<qqbackslash> but it does not
 escape C<$>.
 
+=head2 common_prefix(@LIST) => STR
 
-None are exported by default, but they are exportable.
+Given a list of strings, return common prefix.
+
+=head2 common_suffix(@LIST) => STR
+
+Given a list of strings, return common suffix.
 
 =head1 SEE ALSO
 
@@ -321,12 +364,11 @@ Please visit the project's homepage at L<https://metacpan.org/release/SHARYANTO-
 
 =head1 SOURCE
 
-Source repository is at L<HASH(0x353ed90)>.
+Source repository is at L<https://github.com/sharyanto/perl-SHARYANTO-String-Util>.
 
 =head1 BUGS
 
-Please report any bugs or feature requests on the bugtracker website
-https://rt.cpan.org/Public/Dist/Display.html?Name=SHARYANTO-String-Util
+Please report any bugs or feature requests on the bugtracker website L<https://rt.cpan.org/Public/Dist/Display.html?Name=SHARYANTO-String-Util>
 
 When submitting a bug or request, please include a test-file or a
 patch to an existing test-file that illustrates the bug or desired
@@ -338,7 +380,7 @@ Steven Haryanto <stevenharyanto@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Steven Haryanto.
+This software is copyright (c) 2014 by Steven Haryanto.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
